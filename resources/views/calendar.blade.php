@@ -68,45 +68,53 @@
               <span class="sr-only">Close</span>
           </button>
           </div>
-          <form action="{{ route('calendar') }}" method="" role="form" id="form1">
+          <form action="{{ route('createRecords') }}" method="post" role="form" id="form1">
+            @csrf
           <!-- Modal ボディー -->
           <div class="modal-body">
               <div class="form-group">
               <div class="text-left">
-                <label for="cusno" name="remind_date">リマインドしたい日付</label>
-                <input type="date" class="form-control" name="cusno" id="cusno"><br>
+                <label for="remind_date" name="remind_date">リマインドしたい日付</label>
+                <input type="date" class="form-control" name="remind_date" id="remind_date" value="{{ old('remind_date') }}"><br>
 
                 <div class="form-group">
                     <div class="text-left">
-                      <label for="oldday">分類</label>
+                      <label for="category">分類</label>
                       <div class="radio-inline">
-                          <input type="radio" value="0" name="category_id" id="category_id">
+                          <input type="radio" value="0" name="category_id" id="category_id" value="{{ old('category_id') }}">
                           <label for="memory">思い出</label>
-                          <input type="radio" value="1" name="category_id" id="category_id">
+                          <input type="radio" value="1" name="category_id" id="category_id" value="{{ old('category_id') }}">
                           <label for="target">目標</label>
                       </div>
                     </div>
                 </div>
               </div>
               <div class="text-left">
-                <a href="createCategory" for="category">カテゴリ追加</a>
-                <select name='category_id' class='form-control'>
-                  <option value='' hidden>カテゴリ</option>
-                     
+                
+                <label for="name">カテゴリ</label>
+                  <input type="text" name="name" list="category_list" value='' placeholder="カテゴリを入力" class='form-control' value="{{ old('name') }}">
+                  <datalist id="category_list"></datalist>
+                  <div class="text-right">
+                    <a href="createCategory" for="category">カテゴリ追加</a>
+                  </div>
+                  
                 </select>
               </div><br>
               
               <div class="text-left">
                   <label for="title">タイトル</label>
               </div>
-              <input type="text" class='form-control'>
+              <input type="text" name="title" id="title" class='form-control' value="{{ old('title') }}">
               <br>
                   <div class="form-group">
                       <div class="text-left">
-                          <label for="newday">記録</label>
+                          <label for="text">記録</label>
                       </div>
-                      <textarea rows="10" class="form-control" id="newday" name="newday" autocomplete="off"></textarea>
-                  </div>
+                      <textarea rows="10" class="form-control" id="text" name="text" autocomplete="off"></textarea>
+                      <div class="text-right">
+                        <a href="" for="image" name="image">画像を追加</a>
+                      </div>
+                    </div>
                   <input type="checkbox" name="release_flg">ほかのユーザーに公開する
               </div>
           </div>
@@ -114,7 +122,7 @@
           <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">閉じる
               </button>
-              <button type="button" class="btn btn-primary" id="chgDateSub">保存
+              <button type="submit" class="btn btn-primary" id="chgDateSub">保存
               </button>
           </div>
           </form>

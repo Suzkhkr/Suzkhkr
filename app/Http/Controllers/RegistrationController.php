@@ -16,12 +16,25 @@ use App\Category;
 
 class RegistrationController extends Controller
 {
-    // public function createRecords() {
-    //     // $records = Auth::user()->records()->get();
-    //     $id = Auth::id();
-    //     $user = User::find($id);
-    //     return view('createRecords', [
-    //         'user' => $user,
-    //     ]);
+    public function createRecords($request) {
+
+        $record = new Record;
+
+        $columns = ['remind_date', 'categoty_id', 'name', 'title', 'text', 'release_flg'];
+
+        foreach($columns as $column) {
+            $record->$column = $request->$column;
+        }
+
+        Auth::user()->record()->save($record);
+
+        return redirect('/calendar');
+    }
+
+    // public function createCategory($request) {
+
+    //     $category = new Category;
+
+    //     $co
     // }
 }

@@ -149,13 +149,14 @@
                     </div>
                     <div>公開設定：{{ $records['release_flg'] }}</div>
                 </div>
-            </div>
+            
             <!-- Modal フッター -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる
                 </button>
             </div>
             </form>
+        </div>
         </div>
         </div>
     </div>

@@ -28,8 +28,10 @@ Route::group(['middleware' =>'auth'], function(){
     Route::get('/calendar', [DisplayController::class, 'index'])->name('calendar');
     Route::get('/myRecords', [DisplayController::class, 'myRecords'])->name('myRecords');
     Route::get('/profile', [DisplayController::class, 'profile'])->name('profile');
-    Route::get('/createRecords', [DisplayController::class, 'createRecords'])->name('createRecords');
     Route::get('/timeLine', [DisplayController::class, 'timeLine'])->name('timeLine');
-
-    // Route::post('/createCategory', [RegistrationController::class, 'createCategory'])->name('createCategory');
+    
+    Route::get('/createRecords', [RegistrationController::class, 'createRecords'])->name('createRecords');
+    Route::post('/createRecords', [RegistrationController::class, 'createRecords'])->name('createRecords');
+    Route::post('/createCategory', [RegistrationController::class, 'createCategory'])->name('createCategory');
+    Route::get('/createCategory', [DisplayController::class, 'createCategoryForm'])->name('createCategory');
 });

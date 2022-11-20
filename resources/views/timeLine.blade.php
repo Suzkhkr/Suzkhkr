@@ -79,8 +79,7 @@
                 <tbody>
                     <tr>
                         
-                        <td>{{ $others['user_name'] }}</td>
-                        <td>{{ $categories['category_id'] }}</td>
+                    
                         <td>{{ $releaseRecords['title'] }}</td>
                         <td>{{ $releaseRecords['text'] }}</td>
                         <td><button id="button" type="button" class="btn btn-info">いいね！</button></td>

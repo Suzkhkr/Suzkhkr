@@ -64,25 +64,32 @@ public function profile() {
 }
 
 public function timeLine() {
-    $id = Auth::id();
-    $user = User::find($id);
+    // $id = Auth::id();
+    // $user = User::find($id);
 
-    $record = new Record;
-    $records = $record->all();
-    $releaseRecords = $records->where('release_flg',1)->toArray();
+    $record = Record::all();
+    $releaseRecords = $record->where('release_flg',1)->toArray();
     
-    $other = new User;
-    $others = $other->all();
+    // $otherUsers = User::all();
 
-    dd($others);
+    // dd($otherUsers);
 
-    $category = new Category;
-    $categories = $category->all();
+    // $category = Category::all();
+
     return view('timeLine', [
-        'user' => $user,
-        'others' => $others,
+        // 'user' => $user,
+        // 'otherUsers' => $otherUsers,
         'records' => $releaseRecords,
-        'categories' => $categories,
+        // 'category' => $category,
     ]);
 }
+
+public function createCategoryForm() {
+    $id = Auth::id();
+    $user = User::find($id);
+    return view('createCategory',[
+        'user' => $user,
+        ]);
+}
+
 }
