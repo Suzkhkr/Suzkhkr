@@ -19,17 +19,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
-// Route::get('/', [DisplayController::class, 'index']);
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::group(['middleware' =>'auth'], function(){
+
+    Route::get('/calendar', [DisplayController::class, 'index'])->name('calendar');
+    Route::get('/myRecords', [DisplayController::class, 'myRecords'])->name('myRecords');
+    Route::get('/profile', [DisplayController::class, 'profile'])->name('profile');
+    Route::get('/createRecords', [DisplayController::class, 'createRecords'])->name('createRecords');
+    Route::get('/timeLine', [DisplayController::class, 'timeLine'])->name('timeLine');
+
+    // Route::post('/createCategory', [RegistrationController::class, 'createCategory'])->name('createCategory');
+});
