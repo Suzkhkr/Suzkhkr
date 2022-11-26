@@ -63,7 +63,7 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">パスワードを記憶する</label>
+                                                {{-- <label class="custom-control-label" for="customCheck">パスワードを記憶する</label> --}}
                                             </div>
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
@@ -78,10 +78,11 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">パスワードをお忘れですか?</a><br>
+                                        {{-- <a class="small" href="forgot-password.html">パスワードをお忘れですか?</a><br> --}}
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="/register">新規登録</a>
+                                        <p><a class="small" href="">管理者としてログイン</a></p>
                                     </div>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@
 
 @extends('layouts.app') 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
 
@@ -21,14 +21,15 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    
 </head>
 
-<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+
 @section('content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -46,7 +47,7 @@
         </div>
     </div>
     <!-- Dropdown - Messages -->
-    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+    {{-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
@@ -60,7 +61,7 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            </div> --}}
                     
     <div class="card-body">
         <div class="table-responsive">
@@ -71,25 +72,29 @@
                         <th>分類</th>
                         <th>カテゴリ</th>
                         <th>タイトル</th>
-                        <th>タイトル</th>
+                        <th>本文</th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($data as $d)
                     <tr>
-                        <td>{{ $records['id'] }}</td>
-                        <td>{{ $records['category_id'] }}</td>
-                        <td>{{ $records['title'] }}</td>
-                        <td>{{ $records['title'] }}</td>
-                        <td>{{ $records['text'] }}</td>
-                        <td><button id="button" type="button" class="btn btn-info"
-                            a class="nav-link collapsed" href="#" data-toggle="modal" data-target="#modalForm" data-cusno=1
-                    aria-expanded="true" aria-controls="collapseUtilities">詳細</button></td>
-                        <td><button id="button" type="button" class="btn btn-info">編集</button></td>
-                        <td><button id="button" type="button" class="btn btn-danger" onclick="return confirm('削除しますか？')">削除</button></td>
+                        <td>{{ $d->id }}</td>
+                            @if($d->category_id == 0)
+                        <td>思い出</td>
+                            @else
+                        <td>目標</td>
+                            @endif
+                        <td>{{ $d->name }}</td>
+                        <td>{{ $d->title }}</td>
+                        <td>{{ $d->text }}</td>
+                        <td><a href="{{ route('detailRecords', $d->id) }}"><button id="button" type="button" class="btn btn-info">詳細</button></a></td>
+                        <td><a href="{{ route('editRecordsForm', $d->id) }}"><button id="button" type="button" class="btn btn-info">編集</button></a></td>
+                        <td><a href="{{ route('deleteRecords', $d->id) }}"><button id="button" type="button" class="btn btn-danger" onclick="return confirm('削除しますか？')">削除</button></a></td>
                     </tr>
+                    @endforeach
                 </tbody>
                 </table>
                 <div class="text-center">
@@ -99,6 +104,7 @@
         </div>
     </div>
 </div>
+
 {{-- 詳細モーダル --}}
 <div>
     <p class='text-center bg-info' id="mess"></p>
@@ -119,35 +125,34 @@
                 <div class="form-group">
                 <div class="text-left">
                     <label for="cusno">リマインド日</label><br>
-                    {{ $records['remind_date'] }}
+                    <p>{{ $record['remind_date'] }}</p>
                 <br>
                 <div class="form-group">
                     <div class="text-left">
                     <label for="oldday">分類</label><br>
-                        {{ $records['category_id'] }}
+                        {{ $record['category_id'] }}
                     </div>
                 </div>
                 </div>
                 </div>
                 <div class="text-left">
                 <label for="category">カテゴリ</label><br>
-                {{ $categories['name'] }}</select>
+                {{ $record['name'] }}</select>
                 </div><br>
                 
                 <div class="text-left">
                     <label for="title">タイトル</label><br>
                 </div>
-                {{ $records['title'] }}
+                {{ $record['title'] }}
                 
                 <br>
                     <div class="form-group">
                         <div class="text-left">
                             <label for="newday">記録</label><br>
                         </div>
-                        {{ $records['text'] }}
-                       
+                        {{ $record['text'] }}
                     </div>
-                    <div>公開設定：{{ $records['release_flg'] }}</div>
+                    <div>公開設定：{{ $record['release_flg'] }}</div>
                 </div>
             
             <!-- Modal フッター -->
@@ -158,8 +163,10 @@
             </form>
         </div>
         </div>
-        </div>
     </div>
+</div>
+
+
 
 @endsection
 

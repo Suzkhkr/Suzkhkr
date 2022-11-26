@@ -52,4 +52,9 @@ class User extends Authenticatable
     public function comment() {
         return $this->hasMany('App\Comment');
     }
+
+    // public static $rules = [
+    //     'profile_image' => 'image|file'
+    // ];
+
 }

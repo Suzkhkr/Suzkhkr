@@ -71,20 +71,21 @@
                         <th>ユーザーネーム</th>
                         <th>カテゴリ</th>
                         <th>タイトル</th>
-                        <th></th>
-                        <th></th>
+                        <th>本文</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($data as $d)
                     <tr>
-                        
-                    
-                        <td>{{ $releaseRecords['title'] }}</td>
-                        <td>{{ $releaseRecords['text'] }}</td>
+                        <td>{{ $d->profile_image }}</td>
+                        <td>{{ $d->user_name }}</td>
+                        <td>{{ $d->name }}</td>
+                        <td>{{ $d->title }}</td>
+                        <td>{{ $d->text }}</td>
                         <td><button id="button" type="button" class="btn btn-info">いいね！</button></td>
-                        <td><button id="button" type="button" class="btn btn-info">コメント</button></td>
                     </tr>
+                    @endforeach
                 </tbody>
                 </table>
                 <div class="text-center">

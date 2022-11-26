@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DisplayController;
 
+use App\Http\Controllers\RegistrationController;
+
 use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Auth;
@@ -28,10 +30,22 @@ Route::group(['middleware' =>'auth'], function(){
     Route::get('/calendar', [DisplayController::class, 'index'])->name('calendar');
     Route::get('/myRecords', [DisplayController::class, 'myRecords'])->name('myRecords');
     Route::get('/profile', [DisplayController::class, 'profile'])->name('profile');
+    Route::get('/editProfileForm', [DisplayController::class, 'editProfileForm'])->name('editProfileForm');
+    Route::post('/editProfile', [RegistrationController::class, 'editProfile'])->name('editProfile');
     Route::get('/timeLine', [DisplayController::class, 'timeLine'])->name('timeLine');
     
-    Route::get('/createRecords', [RegistrationController::class, 'createRecords'])->name('createRecords');
+    Route::get('/createRecordsForm', [DisplayController::class, 'createRecordsForm'])->name('createRecordsForm');
+
     Route::post('/createRecords', [RegistrationController::class, 'createRecords'])->name('createRecords');
+    Route::get('/detailRecords/{record}', [DisplayController::class, 'detailRecords'])->name('detailRecords');
+    
+    Route::get('/deleteRecords/{id}', [RegistrationController::class, 'deleteRecords'])->name('deleteRecords');
+
+    Route::get('/editRecordsForm/{record}', [DisplayController::class, 'editRecordsForm'])->name('editRecordsForm');
+    Route::post('/editRecords/{record}', [RegistrationController::class, 'editRecords'])->name('editRecords');
+
     Route::post('/createCategory', [RegistrationController::class, 'createCategory'])->name('createCategory');
-    Route::get('/createCategory', [DisplayController::class, 'createCategoryForm'])->name('createCategory');
+    Route::get('/createCategoryForm', [DisplayController::class, 'createCategoryForm'])->name('createCategoryForm');
+   
+    Route::get('/usersList', [DisplayController::class, 'usersList'])->name('usersList');
 });

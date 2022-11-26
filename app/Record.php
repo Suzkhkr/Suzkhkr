@@ -19,4 +19,15 @@ class Record extends Model
         return $this->belongsTo('App\Comment');
     }
 
+    // public static $rules = [
+    //     'image' => 'image|file'
+    // ];
+
+    protected $fillable = [
+        'image',
+    ];
+
+    protected $dates = [
+        'remind_date',
+    ];
 }

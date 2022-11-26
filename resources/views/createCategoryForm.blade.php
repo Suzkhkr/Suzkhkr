@@ -30,11 +30,21 @@
                     <div class="card-header">{{ __('カテゴリ名追加') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('createCategory') }}">
+                        <form action="{{ route('createCategory') }}" method="POST">
                             @csrf
 
-                            <div class="form-group row">
-                                <label for="user_name" class="col-md-4 col-form-label text-md-right">{{ __('カテゴリ名') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <label for="category">分類</label>
+                                    <div class="radio-inline">
+                                        <input type="radio" value="0" name="category_id" id="category_id" value="{{ old('category_id') }}">
+                                        <label for="memory">思い出</label>
+                                        <input type="radio" value="1" name="category_id" id="category_id" value="{{ old('category_id') }}">
+                                        <label for="target">目標</label>
+                                    </div>
+                                </div>
+                                
+                                <label for="user_name" >{{ __('カテゴリ名') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -45,23 +55,23 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                            
 
-                            <div class="form-group row mb-0">
-                              
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('登録') }}
-                                    </button>
-                                </div>
+                            <div class="text-right">
+                                <a onClick="history.back();" class="btn btn-primary">
+                                    {{ __('戻る') }}
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('登録') }}
+                                </button>
                             </div>
+                            
                         </form>
                     </div>
-                    <a href="" class="btn btn-primary">
-                        {{ __('戻る') }}
-                    </a>
+                   
                 </div>
             </div>
         </div>
     </div>
+</body>
     @endsection
