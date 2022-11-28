@@ -27,7 +27,11 @@
                         <td>{{ $u['user_name'] }}</td>
                         <td>{{ $u['email'] }}</td>
                         <td>{{ $u['created_at'] }}</td>
-                        <td><a href=""><button id="button" type="button" class="btn btn-danger" onclick="return confirm('削除しますか？')">削除</button></a></td>
+                        @if($u['id'] == 1)
+                        <td></td>
+                        @else
+                        <td><a href="{{ route('deleteUser', $u['id']) }}"><button id="button" type="button" class="btn btn-danger" onclick="return confirm('{{ $u['user_name'] }}を本当に削除しますか？')">削除</button></a></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

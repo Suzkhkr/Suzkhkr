@@ -1339,7 +1339,7 @@
 	var _api_registerPlural; // DataTable.Api.registerPlural
 	
 	var _re_dic = {};
-	var _re_new_lines = /[\r\n\u2028]/g;
+	var _re_new_lines = /[\n\u2028]/g;
 	var _re_html = /<.*?>/g;
 	
 	// This is not strict ISO8601 - Date.parse() is quite lax, although
@@ -4575,7 +4575,7 @@
 					}
 	
 					if ( cellData.replace ) {
-						cellData = cellData.replace(/[\r\n\u2028]/g, '');
+						cellData = cellData.replace(/[\n\u2028]/g, '');
 					}
 	
 					filterData.push( cellData );

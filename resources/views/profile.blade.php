@@ -11,18 +11,19 @@
 
 </head>
 <body>
-    <div class="text-center">
-    </div>
-    <div class="text-right pr-5">
-        <a href="{{ route('editProfileForm', $user['id']) }}" type="button" class="btn btn-info text-right">編集する</a>
-    </div>
 
-    <div class="text-center mb-5">
-        <img src="../../uploads/{{ $user->profile_image }}" width="200px" height="200px">
+    <div class="text-center mt-5 mb-5">
+        @if($user['profile_image'] == null)
+        <img class="rounded-circle" src="img/undraw_profile.svg" alt="..." width="200px" height="200px">
+        @else
+        <img src="{{asset('storage/'.$user['profile_image'])}}" alt="" width="200px" height="200px">
+        @endif
         <p class="mt-4">ユーザーネーム：{{ $user['user_name'] }}</p>
         <p>一言コメント：{{ $user['comment'] }}</p>
         <p>メールアドレス：{{ $user['email'] }}</p>
         {{-- <p>パスワード：{{ $user['password'] }}</p><br>  --}}
+        <a href="{{ route('editProfileForm', $user['id']) }}" type="button" class="btn btn-primary text-right">編集する</a>
     </div>
+
 </body>
 @endsection

@@ -78,11 +78,11 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        {{-- <a class="small" href="forgot-password.html">パスワードをお忘れですか?</a><br> --}}
+                                        <a class="small" href="{{ route('password.request') }}">パスワードをお忘れですか?</a><br>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="/register">新規登録</a>
-                                        <p><a class="small" href="">管理者としてログイン</a></p>
+                                        {{-- <p><a class="small" href="">管理者としてログイン</a></p> --}}
                                     </div>
                                 </div>
                             </div>

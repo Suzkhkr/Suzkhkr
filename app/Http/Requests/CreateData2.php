@@ -25,9 +25,9 @@ class CreateData2 extends FormRequest
     {
         return [
             //プロフィール画面のバリデーション
-            'user_name' => 'required',
-            'email' => 'required',
-            'category_id' => 'required',
+            'user_name' => 'required|max:16',
+            'email' => 'required|max:255',
+            'comment' => 'max:20',
         ];
     }
 }

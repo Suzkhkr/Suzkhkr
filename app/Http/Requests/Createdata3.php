@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateData extends FormRequest
+class Createdata3 extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class CreateData extends FormRequest
     public function rules()
     {
         return [
-            //レコード追加画面のバリデーション
-            'remind_date' => 'required|date',
-            'title' => 'required|max:255',
-            'text' => 'required|max:300',
+            //カテゴリ追加画面のバリデーション
             'category_id' => 'required',
+            'name' => 'required|max:20',
         ];
     }
 }

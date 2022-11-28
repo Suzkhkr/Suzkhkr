@@ -35,7 +35,7 @@
                                 @else
                                 <span>目標-</span>
                                 @endif
-                                {{ $result['category']['name'] }}
+                                {{ $result['category']->name }}
                             </p>
                         </div><br>
                         <div class="text-left">
@@ -55,12 +55,11 @@
                                 <p>公開する</p>
                                 @endif
                                 {{-- 画像の表示 --}}
-                               <img src="../../uploads/{{ $result->image }}" width="200px" height="200px">
-
+                                <img src="{{asset('storage/'.$result['image']) }}" alt="" width="200px" height="200px">
                     </div>  
 
                     <div class="text-center mb-3">
-                        <a href="/myRecords" class="btn btn-primary">
+                        <a onClick="history.back();" class="btn btn-primary">
                             {{ __('戻る') }}
                         </a>
                     </div>

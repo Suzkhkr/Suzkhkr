@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>タイムライン</title>
 
@@ -34,17 +35,7 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">ほかの人の投稿</h6>
     </div>
-    <div class="form-group">
-        <div class="text-center">
-                <div class="radio-inline">
-                    <br>
-                    <input type="radio" value="1" name="" id="">
-                    <label for="memory">思い出</label>
-                    <input type="radio" value="2" name="" id="">
-                    <label for="target">目標</label>
-                </div>
-        </div>
-    </div>
+
     <!-- Dropdown - Messages -->
     <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
@@ -71,7 +62,8 @@
                         <th>ユーザーネーム</th>
                         <th>カテゴリ</th>
                         <th>タイトル</th>
-                        <th>本文</th>
+                        {{-- <th>本文</th> --}}
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -82,19 +74,71 @@
                         <td>{{ $d->user_name }}</td>
                         <td>{{ $d->name }}</td>
                         <td>{{ $d->title }}</td>
-                        <td>{{ $d->text }}</td>
-                        <td><button id="button" type="button" class="btn btn-info">いいね！</button></td>
+                        {{-- <td>{{ $d->text }}</td> --}}
+                        <td><button id="button" type="button" class="btn btn-primary like" onclick="like({{$d->id}})">いいね！</button>
+                            <button id="button" type="button" class="btn btn-danger" onclick="unlike({{$d->id}})">解除</button></td>
+                        <td><button id="button" type="button" class="btn btn-warning" onclick="">コメント</button></td>
                     </tr>
                     @endforeach
                 </tbody>
                 </table>
-                <div class="text-center">
+                {{-- <div class="text-center">
                     <a href="{{ route('calendar') }}" type="button" class="btn btn-info">カレンダーに戻る</a>
-                </div>
-                
+                </div> --}}
         </div>
     </div>
 </div>
+<script>
+    function like(id) {
+        console.log(id);
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        url: '/like/' + id,
+        type: "POST",
+    })
+        .done(function (data, status, xhr) {
+        console.log(data);
+        $('.like').addClass('liked');
+        })
+        .fail(function (xhr, status, error) {
+        console.log();
+        });
+    }
 
+    function unlike(id) {
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        url: '/unlike/'+ id,
+        type: "POST",
+    })
+        .done(function (data, status, xhr) {
+        console.log(data);
+        $('.like').removeClass('liked');
+        })
+        .fail(function (xhr, status, error) {
+        console.log();
+        });
+    }
+</script>
+<style>
+    .liked{
+        background-color: coral !important;
+        border: none;
+    }
+</style>
 @endsection
 

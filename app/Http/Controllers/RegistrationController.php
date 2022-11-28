@@ -15,6 +15,7 @@ use App\Record;
 use App\Category;
 use App\Http\Requests\CreateData;
 use App\Http\Requests\CreateData2;
+use App\Http\Requests\Createdata3;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -25,29 +26,17 @@ class RegistrationController extends Controller
         $record = new Record;
         $columns = ['remind_date', 'category_id', 'title', 'text', 'release_flg'];
         if(empty($request->release_flg))$request->release_flg = 0;        
-
         // 画像情報がセットされていれば、保存処理を実行
-        $img = $request->file('image');
-        if(isset($img)) {
-            // 画像フォームでリクエストした画像を取得
-            // storage > public > img配下に画像が保存される
-            $path = $img->store('img', 'public');
+        $file_name = $request->image->getClientOriginalName();
+        $img = $request->image->storeAs('', $file_name, 'public');
+        $record->image = $img;
+        // if(isset($img)) {
+        //     // 画像フォームでリクエストした画像を取得
+        //     // storage > public > img配下に画像が保存される
+        //     $path = $img->store('img', 'public');
 
-            $record->image = $path;
-        }
-
-        //画像の追加
-        // $this->validate($request, Record::$rules);
-
-        // if ($file = $request->image) {
-        //     $fileName = time() . $file->getClientOriginalName();
-        //     $target_path = public_path('uploads/');
-        //     $file->move($target_path, $fileName);
-        // } else {
-        //     $fileName = "";
+        //     $record->image = $path;
         // }
-        // $image = new Record;
-        // $image->image = $fileName;
 
         foreach($columns as $column) {
             $record->$column = $request->$column;
@@ -61,18 +50,18 @@ class RegistrationController extends Controller
 
 
 
-    public function editRecords(Record $record, CreateData $request) {
-        $columns = ['remind_date', 'category_id', 'title', 'text', 'release_flg'];
+    // public function editRecords(Record $record, CreateData $request) {
+    //     $columns = ['remind_date', 'category_id', 'title', 'text', 'release_flg'];
 
-        foreach($columns as $column) {
-            $record->$column = $request->$column;
-        }
-        $record->save();
-        return redirect('myRecords');
-    }
+    //     foreach($columns as $column) {
+    //         $record->$column = $request->$column;
+    //     }
+    //     $record->save();
+    //     return redirect('myRecords');
+    // }
 
 
-    public function createCategory(CreateData $request) {
+    public function createCategory(Createdata3 $request) {
 
         $category = new Category;
 
@@ -85,21 +74,48 @@ class RegistrationController extends Controller
 
     }
 
-    public function deleteRecords(int $id) {
+    // public function deleteRecords(int $id) {
 
-        $record = Record::find($id);
+    //     $record = Record::find($id);
         
-        $record->forceDelete();
+    //     $record->forceDelete();
 
-        return redirect('myRecords');
+    //     return redirect('myRecords');
+    // }
+
+    public function deleteUser(int $id) {
+
+        $user = User::find($id);
+        $user->forceDelete();
+
+        return redirect('usersList');
     }
 
     public function editProfile(User $user, CreateData2 $request) {
-        $columns = ['profile_image', 'user_name', 'comment', 'email', 'password'];
+        // $columns = ['profile_image', 'user_name', 'comment', 'email'];
 
-        foreach($columns as $column) {
-            $user->$column = $request->$column;
-        }
+        // foreach($columns as $column) {
+        //     $user->$column = $request->$column;
+        // }
+
+        $user = auth()->user();
+        $user->user_name = $request->user_name?$request->user_name:$user->user_name;
+        $user->comment = $request->comment?$request->comment : ($user->comment?$user->comment:NULL);
+        $user->email = $request->email?$request->email : $user->email;
+        $file_name = $request->profile_image->getClientOriginalName();
+        $img = $request->profile_image->storeAs('', $file_name, 'public');
+        $user->profile_image = $img;
+
+        // 画像情報がセットされていれば、保存処理を実行
+        // $img = $request->file('profile_image');
+        // if(isset($img)) {
+        //     // 画像フォームでリクエストした画像を取得
+        //     // storage > public > img配下に画像が保存される
+        //     $path = $img->store('public/img');
+
+        //     $user->profile_image = $path;
+        // }
+    
         $user->save();
         return redirect('profile');
     }

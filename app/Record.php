@@ -24,7 +24,7 @@ class Record extends Model
     // ];
 
     protected $fillable = [
-        'image',
+        'image', 'remind_date', 'category_id', 'title', 'text', 'release_flg',
     ];
 
     protected $dates = [

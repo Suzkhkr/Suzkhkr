@@ -30,6 +30,17 @@
                     <div class="card-header">{{ __('カテゴリ名追加') }}</div>
 
                     <div class="card-body">
+                        <div class="panel-body">
+                            @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $message)
+                                    <li>{{ $message }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                        </div>
                         <form action="{{ route('createCategory') }}" method="POST">
                             @csrf
 
@@ -68,7 +79,6 @@
                             
                         </form>
                     </div>
-                   
                 </div>
             </div>
         </div>

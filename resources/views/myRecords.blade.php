@@ -35,7 +35,7 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">開封済み一覧</h6>
     </div>
-    <div class="form-group">
+    {{-- <div class="form-group">
         <div class="text-center">
                 <div class="radio-inline">
                     <br>
@@ -45,34 +45,18 @@
                     <label for="target">目標</label>
                 </div>
         </div>
-    </div>
-    <!-- Dropdown - Messages -->
-    {{-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div> --}}
+    </div> --}}
                     
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>レコード番号</th>
+                        <th>リマインド日</th>
                         <th>分類</th>
                         <th>カテゴリ</th>
                         <th>タイトル</th>
-                        <th>本文</th>
+                        {{-- <th>本文</th> --}}
                         <th></th>
                         <th></th>
                         <th></th>
@@ -80,93 +64,35 @@
                 </thead>
                 <tbody>
                     @foreach($data as $d)
+                    @if($d->opened_flg ==1 || $d->remind_date < $now)
                     <tr>
-                        <td>{{ $d->id }}</td>
-                            @if($d->category_id == 0)
+                        <td>{{ $d->remind_date }}</td>
+                            @if($d->category == 1)
                         <td>思い出</td>
                             @else
                         <td>目標</td>
                             @endif
                         <td>{{ $d->name }}</td>
                         <td>{{ $d->title }}</td>
-                        <td>{{ $d->text }}</td>
-                        <td><a href="{{ route('detailRecords', $d->id) }}"><button id="button" type="button" class="btn btn-info">詳細</button></a></td>
-                        <td><a href="{{ route('editRecordsForm', $d->id) }}"><button id="button" type="button" class="btn btn-info">編集</button></a></td>
-                        <td><a href="{{ route('deleteRecords', $d->id) }}"><button id="button" type="button" class="btn btn-danger" onclick="return confirm('削除しますか？')">削除</button></a></td>
+                        {{-- <td>{{ $d->text }}</td> --}}
+                        <td><a href="{{ route('records.show', $d->id) }}"><button id="button" type="button" class="btn btn-primary">詳細</button></a></td>
+                        <td><a href="{{ route('records.edit', $d->id) }}"><button id="button" type="button" class="btn btn-success">編集</button></a></td>
+                        <td><form action="{{ route('records.destroy', $d->id) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                        <input type="submit" class="btn btn-danger" onclick="return confirm('削除しますか？')" value="削除"/></form></td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
                 </table>
-                <div class="text-center">
+                {{-- <div class="text-center">
                     <a href="{{ route('calendar') }}" type="button" class="btn btn-info">カレンダーに戻る</a>
-                </div>
+                </div> --}}
                 
         </div>
     </div>
 </div>
-
-{{-- 詳細モーダル --}}
-<div>
-    <p class='text-center bg-info' id="mess"></p>
-    <!-- Modal の中身 -->
-    <div class="modal fade" id="modalForm" role="dialog">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal ヘッダー -->
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">×</span>
-                <span class="sr-only">Close</span>
-            </button>
-            </div>
-            <form role="form" id="form1">
-            <!-- Modal ボディー -->
-            <div class="modal-body">
-                <div class="form-group">
-                <div class="text-left">
-                    <label for="cusno">リマインド日</label><br>
-                    <p>{{ $record['remind_date'] }}</p>
-                <br>
-                <div class="form-group">
-                    <div class="text-left">
-                    <label for="oldday">分類</label><br>
-                        {{ $record['category_id'] }}
-                    </div>
-                </div>
-                </div>
-                </div>
-                <div class="text-left">
-                <label for="category">カテゴリ</label><br>
-                {{ $record['name'] }}</select>
-                </div><br>
-                
-                <div class="text-left">
-                    <label for="title">タイトル</label><br>
-                </div>
-                {{ $record['title'] }}
-                
-                <br>
-                    <div class="form-group">
-                        <div class="text-left">
-                            <label for="newday">記録</label><br>
-                        </div>
-                        {{ $record['text'] }}
-                    </div>
-                    <div>公開設定：{{ $record['release_flg'] }}</div>
-                </div>
-            
-            <!-- Modal フッター -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる
-                </button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
-</div>
-
-
 
 @endsection
 
