@@ -24,6 +24,7 @@ class DisplayController extends Controller
         $id = Auth::id();
         $user = User::find($id);
         $result = Record::select('id', 'title', 'remind_date as start')->where('user_id', $id)->get()->toArray();
+        $now = Carbon::now()->format("Y-m-d");
 
         return view('calendar', [
             'user' => $user,

@@ -55,7 +55,7 @@
                                 <p>公開する</p>
                                 @endif
                                 {{-- 画像の表示 --}}
-                                <img src="{{asset('storage/'.$result['image']) }}" alt="" width="200px" height="200px">
+                                <img src="{{$result['image'] == null ?  asset('storage/noImage.png') : asset('storage/'.$result['image']) }}" alt="" width="200px" height="200px">
                     </div>  
 
                     <div class="text-center mb-3">

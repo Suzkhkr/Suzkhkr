@@ -29,34 +29,9 @@
         
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
-          // dateClick: function(info) {
-          //   const eventName = prompt("イベントを入力してください");
+
           events: results,
-  
-            
-          //   if (eventName) {
-          //       calendar.addEvent({
-          //           title: eventName,
-          //           start: info.start,
-          //           end: info.end,
-          //           allDay: true,
-          //       });
-          //   }
-          // },
-          // 日付をクリック、または範囲を選択したイベント
-          // events: function (info, successCallback, failureCallback) {
-          // // // Laravelのイベント取得処理の呼び出し
-          //   axios
-          //     .post("/calender", {
-          //           start_date: info.start.valueOf(),
-          //       })
-          //       .then((response) => {
-          //           // 追加したイベントを削除
-          //           calendar.removeAllEvents();
-          //           // カレンダーに読み込み
-          //           successCallback(response.data);
-          //   });
-          // },
+
         });
       
         calendar.render();

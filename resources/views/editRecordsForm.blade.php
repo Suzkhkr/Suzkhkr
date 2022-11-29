@@ -85,7 +85,7 @@
                                         </div>
                                         <textarea rows="10" class="form-control" id="text" name="text" >{{ $result->text }}</textarea>
                                         <div class="text-left">
-                                            <input type="file" name="image">
+                                            <input type="file" name="image" value="{{ $result->image }}">
                                         </div>
                                     </div>
                                     @if($result['release_flg'] == 2)

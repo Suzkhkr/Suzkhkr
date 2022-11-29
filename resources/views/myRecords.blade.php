@@ -85,11 +85,7 @@
                     @endif
                     @endforeach
                 </tbody>
-                </table>
-                {{-- <div class="text-center">
-                    <a href="{{ route('calendar') }}" type="button" class="btn btn-info">カレンダーに戻る</a>
-                </div> --}}
-                
+                </table>                
         </div>
     </div>
 </div>

@@ -48,9 +48,9 @@
                                 <div class="col-md-6">
                                     <label for="category">分類</label>
                                     <div class="radio-inline">
-                                        <input type="radio" value="0" name="category_id" id="category_id" value="{{ old('category_id') }}">
-                                        <label for="memory">思い出</label>
                                         <input type="radio" value="1" name="category_id" id="category_id" value="{{ old('category_id') }}">
+                                        <label for="memory">思い出</label>
+                                        <input type="radio" value="2" name="category_id" id="category_id" value="{{ old('category_id') }}">
                                         <label for="target">目標</label>
                                     </div>
                                 </div>

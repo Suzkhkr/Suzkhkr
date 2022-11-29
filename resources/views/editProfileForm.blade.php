@@ -6,7 +6,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('記録の編集') }}</div>
+                <div class="card-header">{{ __('プロフィール編集') }}</div>
 
                 <div class="card-body">
                     <div class="panel-body">

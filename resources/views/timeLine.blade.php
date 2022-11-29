@@ -1,5 +1,3 @@
-<!-- 開封済み一覧 -->
-
 @extends('layouts.app') 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,53 +36,46 @@
 
     <!-- Dropdown - Messages -->
     <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                    
+        aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small"
+                    placeholder="Search for..." aria-label="Search"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>アイコン</th>
                         <th>ユーザーネーム</th>
                         <th>カテゴリ</th>
                         <th>タイトル</th>
-                        {{-- <th>本文</th> --}}
-                        <th></th>
+                        <th>本文</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $d)
                     <tr>
-                        <td>{{ $d->profile_image }}</td>
                         <td>{{ $d->user_name }}</td>
                         <td>{{ $d->name }}</td>
                         <td>{{ $d->title }}</td>
-                        {{-- <td>{{ $d->text }}</td> --}}
+                        <td>{{ $d->text }}</td>
                         <td><button id="button" type="button" class="btn btn-primary like" onclick="like({{$d->id}})">いいね！</button>
                             <button id="button" type="button" class="btn btn-danger" onclick="unlike({{$d->id}})">解除</button></td>
-                        <td><button id="button" type="button" class="btn btn-warning" onclick="">コメント</button></td>
+                        {{-- <td><button id="button" type="button" class="btn btn-warning" onclick="">コメント</button></td> --}}
                     </tr>
                     @endforeach
                 </tbody>
                 </table>
-                {{-- <div class="text-center">
-                    <a href="{{ route('calendar') }}" type="button" class="btn btn-info">カレンダーに戻る</a>
-                </div> --}}
         </div>
     </div>
 </div>

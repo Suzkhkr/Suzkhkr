@@ -100,13 +100,7 @@ class RecordController extends Controller
             $record->image = '';
         }
 
-        // if(isset($img)) {
-        //     // 画像フォームでリクエストした画像を取得
-        //     // storage > public > img配下に画像が保存される
-        //     $path = $img->store('img', 'public');
 
-        //     $record->image = $path;
-        // }
 
         foreach($columns as $column) {
             $record->$column = $request->$column;
@@ -172,14 +166,14 @@ class RecordController extends Controller
         $columns = ['remind_date', 'category_id', 'title', 'text', 'release_flg'];
 
         // 画像情報がセットされていれば、保存処理を実行
-        if($request->image == $record->image) {
+        if(empty($request->image)) {
+            $record->image = '';
+        }elseif($request->image == $record->image) {
             $record->image = $record->image;
         }elseif($request->image != $record->image) {
             $file_name = $request->image->getClientOriginalName();
             $img = $request->image->storeAs('', $file_name, 'public');
             $record->image = $img;
-        }elseif(!$request->image) {
-            $record->image = '';
         }
             
         foreach($columns as $column) {

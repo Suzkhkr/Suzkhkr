@@ -70,7 +70,7 @@ class RegistrationController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        return redirect('/createRecordsForm');
+        return redirect('records/create');
 
     }
 
@@ -102,9 +102,14 @@ class RegistrationController extends Controller
         $user->user_name = $request->user_name?$request->user_name:$user->user_name;
         $user->comment = $request->comment?$request->comment : ($user->comment?$user->comment:NULL);
         $user->email = $request->email?$request->email : $user->email;
-        $file_name = $request->profile_image->getClientOriginalName();
-        $img = $request->profile_image->storeAs('', $file_name, 'public');
-        $user->profile_image = $img;
+        if($request->profile_image) {
+            $file_name = $request->profile_image->getClientOriginalName();
+            $img = $request->profile_image->storeAs('', $file_name, 'public');
+            $user->profile_image = $img;
+        }else {
+            $user->profile_image = "";
+        }
+        
 
         // 画像情報がセットされていれば、保存処理を実行
         // $img = $request->file('profile_image');

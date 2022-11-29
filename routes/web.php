@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
+
 
 Auth::routes();
     Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -35,6 +35,7 @@ Auth::routes();
 Route::group(['middleware' =>'auth'], function(){
 
     Route::resource('records', 'RecordController');
+    Route::get('/', [DisplayController::class, 'getEvent']);
     Route::get('/calendar', [DisplayController::class, 'getEvent'])->name('calendar');
     // Route::get('/myRecords', [DisplayController::class, 'myRecords'])->name('myRecords');
     Route::get('/profile', [DisplayController::class, 'profile'])->name('profile');
