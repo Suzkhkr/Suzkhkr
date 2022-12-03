@@ -39,30 +39,30 @@
 
                                         <div class="radio-inline">
 
-                                            <input type="radio" name="category" id="category_id" value="1"{{ $result['category']['category_id'] == 1 ? 'checked' : '' }}  onclick="isDisplayMemory()">
+                                            <input type="radio" name="category" id="category_id" value="1"{{ $result['category']['category_id'] == '1' ? 'checked' : '' }}  onclick="isDisplayMemory()">
                                             <label for="memory">思い出</label>
-                                            <input type="radio" name="category" id="category_id" value="2"{{ $result['category']['category_id'] == 2 ? 'checked' : '' }} onclick="isDisplayTarget()">
+                                            <input type="radio" name="category" id="category_id" value="2"{{ $result['category']['category_id'] == '2' ? 'checked' : '' }} onclick="isDisplayTarget()">
                                             <label for="target">目標</label>
 
                                         </div>
                                     
                                     
                                     <div id="memorySelect">
-                                        <select name='category_id' class='form-control'>
-                                            <option value='{{ $result['category']['id'] }}' hidden>{{ $result['category']['name'] }}</option>
+                                        <select name='category_id' class='form-control' id="m_select">
+                                            <option value='' hidden>{{ $result['category']['name'] }}</option>
                                             @foreach($categories as $category)
                                             @if($category['category_id'] == 1)
-                                                <option value="{{ $category->category_id }}">{{ $category['name'] }}</option>
+                                                <option value="{{ $category->id }}">{{ $category['name'] }}</option>
                                             @endif
                                             @endforeach
                                         </select>
                                     </div>
                                     <div id="targetSelect" style="display:none;">
-                                        <select name='category_id' class='form-control'>
-                                            <option value='{{ $result['category']['id'] }}' hidden>{{ $result['category']['name'] }}</option>
+                                        <select name='category_id' class='form-control' id="t_select" disabled>
+                                            <option value='' hidden>{{ $result['category']['name'] }}</option>
                                             @foreach($categories as $category)
                                             @if($category['category_id'] == 2)
-                                                <option value="{{ $category->category_id }}">{{ $category['name'] }}</option>
+                                                <option value="{{ $category->id }}">{{ $category['name'] }}</option>
                                             @endif
                                             @endforeach
                                         </select>
@@ -114,14 +114,22 @@
         function isDisplayMemory() {
             let memory = document.getElementById("memorySelect");
             let target = document.getElementById("targetSelect");
+            let m_select = document.getElementById("m_select");
+            let t_select = document.getElementById("t_select");
             memory.style.display = "block";
             target.style.display = "none";
+            m_select.disabled = false;
+            t_select.disabled = true;
         }
         function isDisplayTarget() {
             let memory = document.getElementById("memorySelect");
             let target = document.getElementById("targetSelect");
+            let m_select = document.getElementById("m_select");
+            let t_select = document.getElementById("t_select");
             memory.style.display = "none";
             target.style.display = "block";
+            m_select.disabled = true;
+            t_select.disabled = false;
         }
         
     </script>

@@ -67,7 +67,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <button class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             ログイン
                                         </button>
                                         

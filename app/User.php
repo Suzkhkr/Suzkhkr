@@ -47,36 +47,36 @@ class User extends Authenticatable
         return $this->hasMany('App\Category');
     }
 
-    public function likes()
-    {
-        return $this->belongsToMany('App\Record','likes','user_id','record_id')->withTimestamps();
-    }
+    // public function likes()
+    // {
+    //     return $this->belongsToMany('App\Record','likes','user_id','record_id')->withTimestamps();
+    // }
 
-    //この投稿に対して既にlikeしたかどうかを判別する
-    public function isLike($postId)
-    {
-      return $this->likes()->where('record_id',$postId)->exists();
-    }
+    // //この投稿に対して既にlikeしたかどうかを判別する
+    // public function isLike($postId)
+    // {
+    //   return $this->likes()->where('record_id',$postId)->exists();
+    // }
 
-    //isLikeを使って、既にlikeしたか確認したあと、いいねする（重複させない）
-    public function like($postId)
-    {
-      if($this->isLike($postId)){
-        //もし既に「いいね」していたら何もしない
-      } else {
-        $this->likes()->attach($postId);
-      }
-    }
+    // //isLikeを使って、既にlikeしたか確認したあと、いいねする（重複させない）
+    // public function like($postId)
+    // {
+    //   if($this->isLike($postId)){
+    //     //もし既に「いいね」していたら何もしない
+    //   } else {
+    //     $this->likes()->attach($postId);
+    //   }
+    // }
 
-    //isLikeを使って、既にlikeしたか確認して、もししていたら解除する
-    public function unlike($postId)
-    {
-      if($this->isLike($postId)){
-        //もし既に「いいね」していたら消す
-        $this->likes()->detach($postId);
-      } else {
-      }
-    }
+    // //isLikeを使って、既にlikeしたか確認して、もししていたら解除する
+    // public function unlike($postId)
+    // {
+    //   if($this->isLike($postId)){
+    //     //もし既に「いいね」していたら消す
+    //     $this->likes()->detach($postId);
+    //   } else {
+    //   }
+    // }
 
     public function comment() {
         return $this->hasMany('App\Comment');

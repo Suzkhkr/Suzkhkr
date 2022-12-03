@@ -11,8 +11,8 @@ class Record extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function like() {
-        return $this->belongsTo('App\Like');
+    public function likes() {
+        return $this->belongsTo('App\Like', 'id', 'record_id');
     }
     
     public function comment() {

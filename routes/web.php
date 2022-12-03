@@ -29,6 +29,7 @@ Auth::routes();
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset/{token}', 'Auth\ResetPasswordController@reset');
+    
 
 
 
@@ -41,7 +42,9 @@ Route::group(['middleware' =>'auth'], function(){
     Route::get('/profile', [DisplayController::class, 'profile'])->name('profile');
     Route::get('/editProfileForm', [DisplayController::class, 'editProfileForm'])->name('editProfileForm');
     Route::post('/editProfile', [RegistrationController::class, 'editProfile'])->name('editProfile');
+    // Route::get('/timeLine', 'LikeController@index')->name('records.index');
     Route::get('/timeLine', [DisplayController::class, 'timeLine'])->name('timeLine');
+
     // Route::get('/getEvent', [DisplayController::class, 'getEvent']);
     // Route::get('/createRecordsForm', [DisplayController::class, 'createRecordsForm'])->name('createRecordsForm');
 
@@ -59,6 +62,8 @@ Route::group(['middleware' =>'auth'], function(){
     Route::get('/usersList', [DisplayController::class, 'usersList'])->name('usersList');
     Route::get('/deleteUser/{id}', [RegistrationController::class, 'deleteUser'])->name('deleteUser');
 
-    Route::post('/like/{id}',[LikeController::class,'store'])->name('like');
-    Route::post('/unlike/{id}',[LikeController::class,'destroy'])->name('unlike');
+    // Route::post('/like/{id}',[LikeController::class,'store'])->name('like');
+    // Route::post('/unlike/{id}',[LikeController::class,'destroy'])->name('unlike');
+    
+    Route::post('/ajaxlike', 'LikeController@ajaxlike')->name('records.ajaxlike');
 });

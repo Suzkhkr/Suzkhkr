@@ -118,8 +118,6 @@
         target.style.display = "block";
         m_select.disabled = true;
         t_select.disabled = false;
-        console.log(memory.disabled);
-        console.log(target.disabled);
         
     }
     

@@ -64,7 +64,7 @@
                 </thead>
                 <tbody>
                     @foreach($data as $d)
-                    @if($d->opened_flg ==1 || $d->remind_date < $now)
+                    @if($d->opened_flg ==1 || $d->remind_date <= $now)
                     <tr>
                         <td>{{ $d->remind_date }}</td>
                             @if($d->category == 1)
